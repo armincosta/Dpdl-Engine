@@ -1,0 +1,14 @@
+<Users>
+	<User type="admin">
+		<Name>Armin</Name>
+		<E-mail>armincosta@hotmail.com</E-mail>
+	</User>
+	<User type="admin">
+		<Name>Costa</Name>
+		<E-mail>armincosta@hotmail.com</E-mail>
+	</User>
+	<User type="user">
+		<Name>Armin Costa</Name>
+		<E-mail>armincosta@hotmail.com</E-mail>
+	</User>
+</Users>

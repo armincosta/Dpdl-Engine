@@ -1,0 +1,19 @@
+# File: J2MEDrawDemo.h_static
+# Date: 21.07.2007
+# Dpdl-example: This script implements a canvas drawing on J2ME devices
+#
+# Author: ACosta
+# e-mail: info@seesolutions.it
+#
+#
+include("dpdlMIDP.h")
+func initDraw()
+  println("initDraw()")
+  CANVAS = Canvas(0)
+  println("done")
+endfunc
+
+#entry
+int CANVAS = -1
+initDraw()
+

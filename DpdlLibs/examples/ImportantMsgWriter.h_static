@@ -1,0 +1,10 @@
+include("dpdllib.h")
+include("dpdlRS.h")
+func openDB()
+    MSG_RS = createRS("BTObexServer_MSGQueue", AUTHMODE_ANY, dpdlTrue, dpdlTrue)
+endfunc
+
+#entry point
+int MSG_RS = -1
+openDB()
+println("DB opened: " + MSG_RS)

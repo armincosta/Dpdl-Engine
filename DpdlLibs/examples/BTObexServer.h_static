@@ -1,0 +1,33 @@
+# File: BTObexServer.h_static
+# Date: 21.06.2007
+# Dpdl-example: This script implements a Bluetooth Obex Server that reads messages from a record store and sends them to discovered bluetooth devices
+# Author: ACosta
+# e-mail: info@seesolutions.it
+#
+#
+include("dpdlMIDP.h")
+func initDebugForm()
+      int TEXT_LOG = Form(1, "Dpdl(tm) BTObexServer")
+      if TEXT_LOG == -1
+             println("error in allocating UI components")
+      else
+             println("UI Components Not inited()")
+      endif
+      return TEXT_LOG
+endfunc
+
+
+#entry point
+println("init() ObexServer")
+int x1 = initDebugForm()
+int x = DPDLAPI_createObexServer(BT_GIAC_MODE)
+int MSG_QUEUE_HIGH = createRS("BTObexServer_MSGQueue", AUTHMODE_ANY, dpdlTrue, dpdlTrue)
+enumRecords(MSG_QUEUE_HIGH, dpdlTrue)
+if x == 1
+   println("Obex Server inited..")
+else
+   println("Error in starting BTObexServer")
+endif
+println(x)
+
+

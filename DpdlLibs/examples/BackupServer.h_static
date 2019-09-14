@@ -1,0 +1,41 @@
+# File: BackupServer.h_static
+# Date: 03.09.2009
+# Dldl-Example: Backup server
+# Author: ACosta
+# e-mail: info@seesolutions.it
+#
+#
+include("dpdlMIDP.h")
+func initDebugForm()
+      int TEXT_LOG = Form(1, "Dpdl(tm) Backup-Server")
+      if TEXT_LOG == -1
+             println("error in allocating UI components")
+      else
+             println("UI Components Not inited()")
+      endif
+      return TEXT_LOG
+endfunc
+
+func initFileStore()
+    string fn = FILE_PATH+"dsls_gps_path.csv"
+    println("opening file stream>>"+fn)
+    open(fn, "w")
+    println("File Store .csv opened")
+    return dpdlTrue
+endfunc
+
+#entry point
+println("init() BackupServer")
+string FILE_PATH = "C:/Dpdl_Framework/Dpdl_basic_Win32_NEW/binDEMO/"
+int x1 = initDebugForm()
+int x = createServer(BT_LIAC_MODE, dpdlFalse, dpdlFalse, dpdlFalse)
+#int file_store = initFileStore()
+if x == 1
+   println("Backup-Server inited..")
+else
+   println("Error in starting Backup-Server")
+endif
+int COPY_DATA = createRS("DpdlRuntimeInfo", AUTHMODE_ANY, dpdlTrue, dpdlTrue)
+println(x)
+
+
