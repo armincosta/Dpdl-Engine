@@ -1,6 +1,8 @@
 # Dpdl-Scripting
 
-Dpdl (Dynamic Packet Definition Language) Scripting allows the controlling of DpdlEngine features
+Dpdl (Dynamic Packet Definition Language) Scripting allows the controlling of DpdlEngine features.
+
+Dpdl provides and extensible API to implement small application on J2ME and JavaME platforms. 
 
 Some examples of Dpdl-Scripting can be found under ./DpdlLibs/examples/
 
