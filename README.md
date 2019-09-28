@@ -1,10 +1,29 @@
-# Dpdl-Scripting
+# Dpdl-Engine
 
-Dpdl (Dynamic Packet Definition Language) Scripting allows the controlling of DpdlEngine features.
+Dpdl (Dynamic Packet Definition Language) Engine is a compact Java(tm) component that may facilitate the development and prototyping of small java applications on embedded systems and mobile devices (J2ME, JavaME, pure Java).
 
-Dpdl provides and extensible API to implement small application on J2ME and JavaME platforms. 
+Dpdl provides and extensible API, an integrated scripting language and a custom database implementation to handle constrol and data flows in low memory devices. 
 
-Some examples of Dpdl-Scripting can be found under ./DpdlLibs/examples/
+Basic Dpdl-Engine features:
+- API interfaces
+- Scripting engine
+- Database implementation in form of Dpdl packets
+- Bluetooth (JSR-82 implementation)
+
+Platform compatibility:
+- Java >= 1.0 <= 1.8
+- J2ME
+- JavaME
+- DpdlVM
+
+The Dpdl-Engine provides also a mechanism to create and register custom extensions. Some extensions has been added as pilot test case:
+
+Extensions:
+- CoAP (Constrained Application Protocol)
+
+ 
+
+Examples of Dpdl-Scripting can be found under ./DpdlLibs/examples/
 
 Example script:
 ```
