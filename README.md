@@ -4,7 +4,7 @@ Dpdl (Dynamic Packet Definition Language) Engine is a compact Java(tm) micro com
 
 Dpdl provides and extensible API, a custom database implementation and an integrated scripting language to handle control- and data-flows in low memory devices.
 
-The Dpdl-Engine is highly portable and provides also a small virtual machine (< 180 KB) to run the component on  basically almost every platform.
+The Dpdl-Engine is highly portable and provides also a small virtual machine (< 180 KB) to run the component on  basically almost every platform. The engine has been implemented back in year 2003 where low memory mobile devices and applications were spreading. It has been successfully used to develop applications on J2ME MIDP 2.0 CLDC devices to communicate via Bluetooth(tm) with Linux and Windows workstations.
 
 **Features**:
 - API interfaces
