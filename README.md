@@ -9,7 +9,7 @@ The Dpdl-Engine is highly portable and provides also a small virtual machine (< 
 **Features**:
 - API interfaces
 - Scripting engine
-- Database implementation in form of Dpdl packets
+- Database implementation (in form of Dpdl packets)
 - Bluetooth (JSR-82 implementation)
 
 **Platform compatibility**:
@@ -23,7 +23,7 @@ The Dpdl-Engine is highly portable and provides also a small virtual machine (< 
 
  
 
-Example bluetooth discovery:
+**Example bluetooth discovery**:
 ```
 # File: bluetoothDiscovery.h
 # Date: 03.09.2009
