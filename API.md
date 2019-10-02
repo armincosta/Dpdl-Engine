@@ -3,10 +3,10 @@
 
 ## Core API
 
-The methods listed below are part of the Dpdl core API and can be accessed via scripting
+The methods listed below are part of the Dpdl core API and can be accessed via dpdl scripting
 
+**[Native]**
 ```
-[Native]
 systemExec(string cmd, int wait_for, int verbose_output) return int status
 hash(string s)
 println(string s)
@@ -44,8 +44,10 @@ listFiles()
 api()
 getApi() return string api
 exit(int status)
+```
 
-[DPDLAPI]
+**[DPDLAPI]**
+```
 include(string lib_path)     return int
 DPDLAPI_getVersion()  return string
 DPDLAPI_getEngineVersion() return string
@@ -64,8 +66,10 @@ DPDLAPI_processXPathVar(string var_name, string query, string mode, string outpu
 DPDLAPI_createThread(int instance, string script, int priority, int milliseconds)    return int status
 DPDLAPI_execScript(string script) return int status
 DPDLAPI_execCode(string file) return int status
+```
 
-[DPDLAPI Bluetooth]
+**[DPDLAPI Bluetooth]**
+```
 DPDLAPI_createDevice(string type, string name, string param, string cmd) return int status
 DPDLAPI_discoverBTDevices()   return devices
 DPDLAPI_discoverBTDevicesA()   return int status
@@ -98,8 +102,10 @@ DPDLAPI_sendObexImage(string img_name) return int status
 DPDLAPI_pairBTDeviceA(string dev) return int status
 DPDLAPI_pairBTDeviceAWait(string dev) return int status
 DPDLAPI_pairBTDeviceAPassive(int init) return int status
+```
 
-[DPDLRS]
+**[DPDLRS]**
+```
 DPDLLIB_openRS(string name, int auth_mode, int writable, int create)  return int rs_id
 DPDLLIB_closeRS(int rs_id)   return int status
 DPDLLIB_deleteRS(string rs_name)   return int status
@@ -115,14 +121,18 @@ DPDLLIB_addRSData(int rs_id, string data)  return int status
 DPDLLIB_setRSData(int rs_id, int rec_id, string data)   return int status
 DPDLLIB_getRSData(int rs_id, int rec_id)   return string data
 DPDLLIB_deleteRSData(int rs_id, int rec_id) return int status
+```
 
-[DPDLNET]
+**[DPDLNET]**
+```
 DPDLLIB_createServer(int server_id, int port) return int status
 DPDLLIB_createClient(int client_id, string host, int port) return int status
 DPDLLIB_sendClientData(string data) return int status
 DPDLLIB_readClientData() return string data
+```
 
-[MIDP]
+**[MIDP]**
+```
 MIDPLIB_Alert(string title, string msg, int type)   return int commandPressed
 MIDPLIB_Form(int instance, string title)   return int component_index
 MIDPLIB_FormAppend(int component, string msg)   return int status
@@ -149,4 +159,4 @@ MIDPLIB_setRSData(int rs_id, int rec_id, string data)   return int status
 MIDPLIB_getRSData(int rs_id, int rec_id)   return string data
 MIDPLIB_deleteRSData(int rs_id, int rec_id) return int status
 MIDPLIB_getCalendarField(int field_name)   return int value
-``
+```
