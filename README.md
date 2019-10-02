@@ -8,7 +8,7 @@ The Dpdl-Engine is highly portable and provides also a small virtual machine (< 
 
 **Features**:
 - API interfaces
-- Scripting engine
+- Dpdl scripting
 - Database implementation (in form of Dpdl packets)
 - Bluetooth (JSR-82 implementation)
 
