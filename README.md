@@ -23,10 +23,10 @@ The Dpdl-Engine is highly portable and provides also a small virtual machine (< 
 
  
 
-**Example bluetooth discovery**:
+**Example bluetooth discovery and save devices found**:
 ```
-# File: bluetoothDiscovery.h
-# Date: 03.09.2009
+# File: bluetoothDiscoverySave.h
+# Date: 02.10.2019
 # Dldl-Example: Discovery of bluetooth devices
 # Author: ACosta
 # e-mail: info@seesolutions.it
@@ -34,6 +34,7 @@ The Dpdl-Engine is highly portable and provides also a small virtual machine (< 
 #
 include("dpdllib.h")
 include("dpdlBT.h")
+include("dpdlRS.h")
 func runDiscovery()
      int s1 = searchServerDevices()
      int status_discovery = 0
@@ -59,18 +60,35 @@ func showDevicesFound()
           dev = DPDLAPI_getServerVisibleBTAddr()
           if(dev != "null")
               println("dev visible: " + dev)
+              saveData(dev)
 			  dev_found = dev_found + 1
           endif
      endwhile
 endfunc
 
+func saveData(string data)
+     if(BT_DEV_RS != -1)
+         int id = addRecord(BT_DEV_RS, data)
+         println("rec ID:" + id)
+         println("data saved")
+     endif
+endfunc
+
 #entry
 println("BT device discovery inited")
 int x = DPDLAPI_createObexServer(BT_GIAC_MODE)
+println("opening record store 'BluetoohDevices'...")
+int BT_DEV_RS = createRS("BluetoohDevices", AUTHMODE_ANY, dpdlTrue, dpdlTrue)
+enumRecords(BT_DEV_RS, dpdlTrue)
 println("discovering BT devices...")
 runDiscovery()
 showDevicesFound()
+int total_btdevices  =  getNrRecords(BT_DEV_RS)
+println("Total Bluetooth devices discovered: " + total_btdevices)
+println("closing record store")
+closeRS(BT_DEV_RS)
 println("done")
+
 ```
 
 Other Examples of Dpdl-Scripting can be found under ./DpdlLibs/examples/
