@@ -1,32 +1,38 @@
 # File: testDpdlDB.h
 #
-# Example: Example Script that shows how to access and query data stored in a Dpdl Packet
-#		   that has been encoded with dpdl_$PACKET_NAME.c definition source
+# Example: Script implementation that shows how to access and query data stored in a Dpdl Packet (dpdl_PHONEBOOK.dpdl)
+#		   that has been encoded with dpdl_PHONEBOOK.c source
 #
-#		   The script implements a small console application to allocate and make bulk queries on a provided Dpdl Packet 
+# 		   This implementation assumes that the provided Dpdl service dpdl_PHONEBOOK has already been installed
+#		   If the selected chunks are not yet allocated, allocation will be done at the first run
 #
-# 		   This implementation assumes that the provided dpdl_$PACKET_NAME has already been installed on the device.
-#		   If the selected chunks are not yet allocated, allocation will be done at the first run.
-#
-# Author: A.Costa
-# e-mail: armincosta(_a_t_)seesolutions.it
-#
-# License: GNU GPL
+# Author: A. Costa
+# e-mail: info@seesolutions.it
 #
 #
 include("dpdlMIDP.h")
 
-function init()
+func init()
    println("init() testDpdlDB.h")
-end
+endfunc
 
-function showResults()
+func addToCSV(string name, string phoneNR, string email)
+	string entry = "" + name + ";" + phoneNR + ";" + email + ""
+	if(hfile != dpdlError)
+		write(hfile, entry)
+		println("entry added..")
+	else
+		println("Error in opening file for writing")
+	endif
+endfunc
+
+func showResults()
      string name_
      string phoneNR
      string email
      int nr_res = DPDLAPI_getNrResults()
      int c = 0
-     println("Results: " + nr_res + " ---->")
+     println("Results: " + nr_res + " ---->");
      if(nr_res > 0)
          # we just show one result-set in this example
          while(c < nr_res)
@@ -37,39 +43,44 @@ function showResults()
               println("                       phone nr.: " + phoneNR)
               println("                       e-mail: " + email)
               println("-----------------------------------------")
+              if(name_ != dpdlNull)
+              	# addToCSV(name_, phoneNR, email)
+              endif
               c=c+1
          endwhile
          println("#######################")
      else
          println("no results found")
      endif
-end
-
-string dpdl_packet_name = dpdlNull
-string dpdl_chunk_name = dpdlNull
+endfunc
 
 # script entry point
+string DPDL_PACKET_NAME = "dpdl_PHONEBOOK"
+string DPDL_CHUNK_NAME = "BolzanoPhone"
+# for stats
+int total_ms = 0
+int end_ms = 0
 println("starting...")
 init()
-println("enter the packet name:")
-dpdl_packet_name = readln()
-println("enter the chunk name:")
-dpdl_chunk_name = readln()
 
 println("allocating Dpdl Service...")
 int status = dpdlError
 println("swapping chunks..")
-status = DPDLAPI_swapDpdlChunk(dpdl_packet_name, dpdl_chunk_name)
+status = DPDLAPI_swapDpdlChunk(DPDL_PACKET_NAME, DPDL_CHUNK_NAME)
 println("status: " + status)
 println("finished swapping..")
 
 string constraint_ = dpdlNull
+
+int hfile = open("./BolzanoPhone.csv", "w")
+status = dpdlTrue
 if(status == dpdlTrue)
          int c = 0
          int i = 1
          string search_key = ""
+         int search_rand_int = 0
          println("running queries...")
-         println("press 'q' to query from the console, else ENTER to run 5000 queries automatically")
+         println("press 'q' to query from the console, else ENTER to run 50000 queries automatically")
          int console_input = dpdlFalse
          string read_console = readln()
          if(read_console == "q")
@@ -79,16 +90,20 @@ if(status == dpdlTrue)
               constraint_ = readln()
               constraint_ = constraint_ + " "
          endif
-         setStartTime()
-         while(c < 43000)
+         while(c < 50000)
               if(console_input)
                   println("enter a key to search:")
                   search_key = readln()
               else
-                  println("-->   searching: "+(constraint_+i))
-                  search_key = (constraint_+i)
+              	  search_rand_int = randInt(16, 50000) # i
+              	  search_rand_int = abs(search_rand_int)
+                  println("-->   searching: "+(constraint_+search_rand_int))
+                  search_key = (constraint_+search_rand_int)
               endif
-              status = DPDLAPI_selectDpdlService(dpdl_packet_name, dpdl_chunk_name, search_key)
+              setStartTime()
+              status = DPDLAPI_selectDpdlService(DPDL_PACKET_NAME, DPDL_CHUNK_NAME, search_key)
+              end_ms = getEndTime()
+              total_ms = total_ms + end_ms
               if(status == dpdlTrue)
               	showResults()
               else
@@ -97,7 +112,8 @@ if(status == dpdlTrue)
               c = c+1
               i = i+1
          endwhile
-         int time_exec = getEndTime()
-         println("time exec in : " + time_exec + " ms")
+         int time_exec = total_ms / 50000
+         println("average execution time in : " + time_exec + " ms")
 endif
+close(hfile)
 

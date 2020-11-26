@@ -1,18 +1,21 @@
-# File: J2MEDrawDemo.h
-# Date: 21.07.2007
-# Dpdl-example: This script implements a canvas drawing on J2ME devices
 #
-# Author: ACosta
-# e-mail: info@seesolutions.it
+# File: J2MEDrawExample.h
+#
+# Example application to draw on a J2ME MIDP canvas
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
 #
 #
 include("dpdlMIDP.h")
-func initDrawTest()
+function initDrawTest()
   println("test init()")
-endfunc
+end
 
 #this method draws a grid
-func draw()
+function draw()
      if(CANVAS != -1)
        gClear(CANVAS)
        gSetCurrent(CANVAS)
@@ -40,10 +43,9 @@ func draw()
        string time_str = "" + time_
        gDrawString(CANVAS, time_str, 10, y_+22, LEFT)
      endif
-endfunc
+end
 
 #main()
 int CANVAS = 0
 initDrawTest()
 draw()
-

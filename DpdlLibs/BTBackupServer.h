@@ -1,28 +1,32 @@
-# File: BackupServerSlave.h
-# Date: 03.09.2009
-# Dldl-Example: Backup server slave
-# Author: ACosta
-# e-mail: info@seesolutions.it
+#
+# File: BTBackupServer.h
+#
+# Backup Server application to receive data from other bluetooth devices
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
 #
 #
 include("dpdlMIDP.h")
-func printlnScreen(string m)
+function printlnScreen(string m)
      if TEXT_LOG != -1
          int x =  FormAppend(TEXT_LOG, m+"\n")
      else
          println(m)
      endif
-endfunc
+end
 
-func printScreen(string m)
+function printScreen(string m)
      if TEXT_LOG != -1
         int x = FormAppend(TEXT_LOG, m)
      else
          print(m)
      endif
-endfunc
+end
 
-func saveData(string data)
+function saveData(string data)
      if(COPY_DATA != -1)
          int id = addRecord(COPY_DATA, data)
          if(FILE_STORE != -1)
@@ -32,24 +36,21 @@ func saveData(string data)
          #printlnScreen("rec ID:" + id)
          #printlnScreen("data saved")
      endif
-endfunc
+end
 
-func processClients()
+function processClients()
      string tx, rx
      printlnScreen("Connecting reachable devices...")
-     #s2 = connectServerDevices()
-     #printlnScreen("ready to read()" + s2)
-     #sleep(3000)
-     #we face the old server functions (see BackupServer.h)
-     s1 = dpdlTrue
-     s2 = dpdlTrue
-     if s1 && s2 && (client != -1)
-         rx = readClientData(client)
+     s2 = connectServerDevices()
+     printlnScreen("ready to read()" + s2)
+     sleep(4000)
+     if s1 && s2
+         rx = readServerData()
          printlnScreen("rx: " + rx)
          if (rx == "backup_cmd")
-             s3 = sendClientData(client, "ok_cmd")
+             s3 = sendServerData("ok_cmd")
              printlnScreen("bt communication status: " + s3)
-             rx = readClientData(client)
+             rx = readServerData()
              int c_clear = 0
              int max = 10
              int c_ = 0
@@ -73,7 +74,7 @@ func processClients()
                         printScreen("*")
                     endif
                  endif
-                 rx = readClientData(client)
+                 rx = readServerData()
              endwhile
              printlnScreen("DATA Backup completed")
              if(FILE_STORE != -1)
@@ -86,20 +87,33 @@ func processClients()
      else
           printlnScreen("No Client-Device Discovered")
      endif
-endfunc
+end
 
-func run()
-     printlnScreen("processing Backup-Clients...")
-     processClients()
-     sleep(2000)
+function run()
+     #first we clear the previous log
      FormClear(TEXT_LOG)
+     s1 = searchServerDevices()
+     int status_discovery = 0
+     int service_discovery = 0
+     int counter_ = 0
+     while (status_discovery != 1) && (service_discovery != 1)
+         status_discovery = discoveryFinished(BT_SERVER_MODE)
+         service_discovery = serviceDiscoveryFinished(BT_SERVER_MODE)
+         printScreen(".")
+         counter_ = counter_+1
+         sleep(500)
+     endwhile
+     if(counter_ > 3)
+           printlnScreen("processing Backup-Clients...")
+           sleep(15000)
+           processClients()
+     endif
      return dpdlTrue
-endfunc
+end
 
 #start of execution
 #TEXT_LOG ->loaded statically at index 1, see BackupServer.h_static
 #this will be replaced by getStaticContext("TEXT_LOG")
-int client = 0
 int TEXT_LOG = 1
 int COPY_DATA = 0
 #in addition we store it also in .csv format

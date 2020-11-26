@@ -1,12 +1,16 @@
+#
 # File: BTObexServer.h_static
-# Date: 21.06.2007
-# Dpdl-example: This script implements a Bluetooth Obex Server that reads messages from a record store and sends them to discovered bluetooth devices
-# Author: ACosta
-# e-mail: info@seesolutions.it
+#
+# Obex server application that reads messages from a store and sends them via bluetooth
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
 #
 #
 include("dpdlMIDP.h")
-func initDebugForm()
+function initDebugForm()
       int TEXT_LOG = Form(1, "Dpdl(tm) BTObexServer")
       if TEXT_LOG == -1
              println("error in allocating UI components")
@@ -14,7 +18,7 @@ func initDebugForm()
              println("UI Components Not inited()")
       endif
       return TEXT_LOG
-endfunc
+end
 
 
 #entry point

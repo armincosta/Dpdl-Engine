@@ -1,0 +1,32 @@
+#
+# File: bluetoothDeviceDetectionExample.h_static
+#
+# Bluetooth device detection example written in Dpdl
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
+#
+#
+include("dpdlMIDP.h")
+function initDebugForm()
+      int TEXT_LOG = Form(1, "BT Device Detector")
+      if TEXT_LOG == -1
+             println("error in allocating UI components")
+      else
+             println("UI Components Not inited()")
+      endif
+      return TEXT_LOG
+end
+
+# entry point main
+int x1 = initDebugForm()
+int x = createServer(BT_LIAC_MODE, dpdlFalse, dpdlFalse, dpdlFalse)
+if x == 1
+   println("Device Detector inited..")
+else
+   println("Error in starting the Device Detector")
+endif
+
+

@@ -1,28 +1,32 @@
+#
 # File: BTObexServer.h
-# Date: 21.06.2007
-# Dpdl-example: This script implements a Bluetooth Obex Server that reads messages from a record store and sends them to discovered bluetooth devices
-# Author: ACosta
-# e-mail: info@seesolutions.it
+#
+# Obex server application that reads messages from a store and sends them via bluetooth
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
 #
 #
 include("dpdlMIDP.h")
-func printlnScreen(string m)
+function printlnScreen(string m)
      if TEXT_LOG != -1
          int x =  FormAppend(TEXT_LOG, m+"\n")
      else
          println(m)
      endif
-endfunc
+end
 
-func printScreen(string m)
+function printScreen(string m)
      if TEXT_LOG != -1
         int x = FormAppend(TEXT_LOG, m)
      else
          print(m)
      endif
-endfunc
+end
 
-func sendImportantMsg(string dev)
+function sendImportantMsg(string dev)
      int status_send = dpdlFalse
      int id = -1
      string d = dpdlNull
@@ -48,10 +52,10 @@ func sendImportantMsg(string dev)
             endwhile
             printlnScreen("Status sending: " + status_send)
      endif
-endfunc
+end
 
 
-func run()
+function run()
      #first we clear the previous log
      FormClear(TEXT_LOG)
      s1 = searchServerDevices()
@@ -81,7 +85,7 @@ func run()
 		println("No device found")
 	 endif
      return dpdlTrue
-endfunc
+end
 
 #start of execution
 #this will be replaced by getStaticContext("TEXT_LOG")

@@ -1,26 +1,25 @@
+#
 # File: startup.h
-# Date: 03.09.2009
 #
-# Function: Startup code for the DpdlEngine if EXEC_STARTUP_CODE is true
+# Example startup script that starts a dedicated Thread running BTObexServer.h
 #
-# In this example we create a console for allocating and querying a phone-book example (dpdl_PHONEBOOK.c)
-# NOTE: The Dpdl service dpdl_PHONEBOOK part of the example must be installed manually via DpdlClient console
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
 #
-# Author: ACosta
-# e-mail: info@seesolutions.it
+# License: GNU GPL
 #
 #
 include("dpdllib.h")
-func printlnScreen(string m)
+function printlnScreen(string m)
      println(m+"\n")
-endfunc
+end
 
-func printScreen(string m)
+function printScreen(string m)
      print(m)
-endfunc
+end
 
 #begin of execution
-string dpdl_script = "examples/BTObexServer.h"
+string dpdl_script = "examples/DpdlScripting/BTObexServer.h"
 
 int commThread = 0
 printlnScreen("--------------------------")
@@ -34,7 +33,7 @@ server = createThread(commThread, dpdl_script, dpdlNormPriority, SERVER_REFRESH)
 if server == dpdlTrue
     printlnScreen(dpdl_script + " inited: " + server + " Thread interval: " + SERVER_REFRESH + " ms")
 else
-    printlnScreen("ERROR in starting " + dpdl_script)
+    printlnScreen("ERROR in creating BTObexServer Thread is script " + dpdl_script)
 endif
 printlnScreen("--------------------------")
 

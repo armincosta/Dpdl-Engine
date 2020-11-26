@@ -1,0 +1,22 @@
+#
+# File: J2MEDrawExample.h_static
+#
+# Example application to draw on a J2ME MIDP canvas
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
+#
+#
+include("dpdlMIDP.h")
+function initDraw()
+  println("initDraw()")
+  CANVAS = Canvas(0)
+  println("done")
+end
+
+#entry
+int CANVAS = -1
+initDraw()
+

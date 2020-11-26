@@ -11,23 +11,23 @@
 #
 include("dpdlMIDP.h")
 include("DPDLProt.h")
-func printlnScreen(string m)
+function printlnScreen(string m)
      if TEXT_LOG != -1
          int x =  FormAppend(TEXT_LOG, m+"\n")
      else
          println(m)
      endif
-endfunc
+end
 
-func printScreen(string m)
+function printScreen(string m)
      if TEXT_LOG != -1
         int x = FormAppend(TEXT_LOG, m)
      else
          print(m)
      endif
-endfunc
+end
 
-func detect()
+function detect()
      string tx, rx
      printlnScreen("Connecting reachable devices...")
      s2 = connectServerDevices()
@@ -64,9 +64,9 @@ func detect()
      else
          printlnScreen("No Connection")
      endif
-endfunc
+end
 
-func run()
+function run()
      #first we clear the previous log
      FormClear(TEXT_LOG)
      s1 = searchServerDevices()
@@ -81,7 +81,7 @@ func run()
      printlnScreen("processing detected Devices")
      detect()
      return dpdlTrue
-endfunc
+end
 
 
 #module entry point

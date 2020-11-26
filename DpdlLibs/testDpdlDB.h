@@ -1,32 +1,26 @@
 # File: testDpdlDB.h
 #
-# Example: Script implementation that shows how to access and query data stored in a Dpdl Packet (dpdl_PHONEBOOK.dpdl)
-#		   that has been encoded with dpdl_PHONEBOOK.c source
+# Example: Example Script that shows how to access and query data stored in a Dpdl Packet
+#		   that has been encoded with dpdl_$PACKET_NAME.c definition source
 #
-# 		   This implementation assumes that the provided Dpdl service dpdl_PHONEBOOK has already been installed
-#		   If the selected chunks are not yet allocated, allocation will be done at the first run
+#		   The script implements a small console application to allocate and make bulk queries on a provided Dpdl Packet 
 #
-# Author: A. Costa
-# e-mail: info@seesolutions.it
+# 		   This implementation assumes that the provided dpdl_$PACKET_NAME has already been installed on the device.
+#		   If the selected chunks are not yet allocated, allocation will be done at the first run.
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
 #
 #
 include("dpdlMIDP.h")
 
-func init()
+function init()
    println("init() testDpdlDB.h")
-endfunc
+end
 
-func addToCSV(string name, string phoneNR, string email)
-	string entry = "" + name + ";" + phoneNR + ";" + email + ""
-	if(hfile != dpdlError)
-		write(hfile, entry)
-		println("entry added..")
-	else
-		println("Error in opening file for writing")
-	endif
-endfunc
-
-func showResults()
+function showResults()
      string name_
      string phoneNR
      string email
@@ -43,31 +37,33 @@ func showResults()
               println("                       phone nr.: " + phoneNR)
               println("                       e-mail: " + email)
               println("-----------------------------------------")
-              if(name_ != dpdlNull)
-              	addToCSV(name_, phoneNR, email)
-              endif
               c=c+1
          endwhile
          println("#######################")
      else
          println("no results found")
      endif
-endfunc
+end
+
+string dpdl_packet_name = dpdlNull
+string dpdl_chunk_name = dpdlNull
 
 # script entry point
 println("starting...")
 init()
+println("enter the packet name:")
+dpdl_packet_name = readln()
+println("enter the chunk name:")
+dpdl_chunk_name = readln()
 
 println("allocating Dpdl Service...")
 int status = dpdlError
 println("swapping chunks..")
-status = DPDLAPI_swapDpdlChunk("dpdl_PHONEBOOK", "BolzanoPhone")
+status = DPDLAPI_swapDpdlChunk(dpdl_packet_name, dpdl_chunk_name)
 println("status: " + status)
 println("finished swapping..")
 
 string constraint_ = dpdlNull
-
-int hfile = open("./BolzanoPhone.csv", "w")
 if(status == dpdlTrue)
          int c = 0
          int i = 1
@@ -84,7 +80,7 @@ if(status == dpdlTrue)
               constraint_ = constraint_ + " "
          endif
          setStartTime()
-         while(c < 48001)
+         while(c < 50000)
               if(console_input)
                   println("enter a key to search:")
                   search_key = readln()
@@ -92,17 +88,16 @@ if(status == dpdlTrue)
                   println("-->   searching: "+(constraint_+i))
                   search_key = (constraint_+i)
               endif
-              status = DPDLAPI_selectDpdlService("dpdl_PHONEBOOK", "BolzanoPhone", search_key)
+              status = DPDLAPI_selectDpdlService(dpdl_packet_name, dpdl_chunk_name, search_key)
               if(status == dpdlTrue)
               	showResults()
               else
               	println("Error in select")
               endif
-              c = c+1
-              i = i+1
+              c = c+10
+              i = i+10
          endwhile
          int time_exec = getEndTime()
          println("time exec in : " + time_exec + " ms")
 endif
-close(hfile)
 

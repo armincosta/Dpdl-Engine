@@ -1,13 +1,17 @@
-# File: bluetoothDiscovery.h
-# Date: 03.09.2009
-# Dldl-Example: Discovery of bluetooth devices
-# Author: ACosta
-# e-mail: info@seesolutions.it
+#
+# File: bluetoothDiscoveryExample.h
+#
+# Bluetooth device discovery example written in Dpdl
+#
+# Author: A.Costa
+# e-mail: armincosta(_a_t_)seesolutions.it
+#
+# License: GNU GPL
 #
 #
 include("dpdllib.h")
 include("dpdlBT.h")
-func runDiscovery()
+function runDiscovery()
      int s1 = searchServerDevices()
      int status_discovery = 0
      int service_discovery = 0
@@ -23,9 +27,9 @@ func runDiscovery()
      else
      	println("No working Bluetooth stack found")
      endif
-endfunc
+end
 
-func showDevicesFound()
+function showDevicesFound()
 	 string dev = "n"
 	 int dev_found = 0
      while(dev != "null")
@@ -35,7 +39,7 @@ func showDevicesFound()
 			  dev_found = dev_found + 1
           endif
      endwhile
-endfunc
+end
 
 #entry
 println("BT device discovery inited")
