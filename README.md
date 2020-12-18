@@ -21,7 +21,9 @@ The Dpdl-Engine is highly portable and provides also a small virtual machine (< 
 **Extensions**:
 - CoAP (Constrained Application Protocol)
 
- 
+For more info about Dpdl visit the SEE Solutions website:
+
+[SEE Solutions DPDL](http://www.seesolutions.it/lang_en/index_technology.html) 
 
 **Example bluetooth discovery and save devices found**:
 ```
