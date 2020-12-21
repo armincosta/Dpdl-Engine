@@ -4,7 +4,7 @@ package dpdl.dpdlRun;
  Dpdl(tm) -- Dynamic Packet Definition Language
  copyright(c) 2003-2006 Armin Costa
 
- www.msls.biz/Dpdl.htm
+ www.seesolutions.it
 
 
  Author:  Armin Costa
